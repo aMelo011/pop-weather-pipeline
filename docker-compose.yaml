@@ -25,3 +25,18 @@ services:
     volumes:
       - ./:/home/src/
     restart: always
+
+  metabase:
+    image: metabase/metabase:latest
+    container_name: metabase
+    ports:
+      - "3000:3000"
+    environment:
+      - MB_DB_TYPE=postgres
+      - MB_DB_DBNAME=data_test
+      - MB_DB_PORT=5432
+      - MB_DB_USER=melo
+      - MB_DB_PASS=root
+      - MB_DB_HOST=database
+    depends_on:
+      - database
