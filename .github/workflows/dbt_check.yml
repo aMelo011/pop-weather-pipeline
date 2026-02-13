@@ -1,0 +1,28 @@
+name: dbt Validation
+
+on:
+  push:
+    branches:
+      - main
+      - master
+
+jobs:
+  validate-code:
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Checkout do codigo
+        uses: actions/checkout@v4
+
+      - name: Configurar Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Instalar dbt
+        run: pip install dbt-postgres
+
+      - name: Validar Sintaxe (dbt parse)
+        run: |
+          cd weather_transform
+          dbt parse
