@@ -1,7 +1,16 @@
-{{ config(materialized='table') }}
+{{ config(
+    materialized='incremental',
+    unique_key='weather_date'
+) }}
 
 WITH raw_data AS (
     SELECT * FROM public.weather_data
+    
+    {% if is_incremental() %}
+    -- O dbt só vai ler os dados da tabela original que sejam mais recentes
+    -- do que a última data que já temos na nossa tabela final
+    WHERE DATE(extracted_at) >= (SELECT MAX(weather_date) FROM {{ this }})
+    {% endif %}
 )
 
 SELECT
