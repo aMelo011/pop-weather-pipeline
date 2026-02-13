@@ -1,0 +1,23 @@
+version: 2
+
+models:
+  - name: daily_weather_summary
+    description: "Tabela agregada com o resumo diário."
+    columns:
+      - name: city
+        description: "A cidade onde a medição foi feita."
+        tests:
+          - not_null
+          - accepted_values:
+              arguments:
+                values: ['Lisboa']
+
+      - name: weather_date
+        description: "A data da extração."
+        tests:
+          - not_null
+
+      - name: total_readings
+        description: "Número total de extrações da API."
+        tests:
+          - not_null
