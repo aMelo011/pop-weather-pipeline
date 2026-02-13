@@ -22,6 +22,23 @@ jobs:
       - name: Instalar dbt
         run: pip install dbt-postgres
 
+      - name: Criar perfil falso para o teste passar
+        run: |
+          mkdir -p ~/.dbt
+          cat <<EOF > ~/.dbt/profiles.yml
+          weather_transform:
+            target: dev
+            outputs:
+              dev:
+                type: postgres
+                host: localhost
+                user: robo_github
+                password: password_falsa
+                port: 5432
+                dbname: base_falsa
+                schema: analytics
+          EOF
+
       - name: Validar Sintaxe (dbt parse)
         run: |
           cd weather_transform
