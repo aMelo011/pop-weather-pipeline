@@ -55,3 +55,8 @@ type: python
 uuid: weather_bot
 variables_dir: /home/src/mage_data/weather_pipeline
 widgets: []
+notification_config:
+  alert_on:
+    - trigger_failure
+    - trigger_success
+  slack_config:
