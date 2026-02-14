@@ -60,3 +60,4 @@ notification_config:
     - trigger_failure
     - trigger_success
   slack_config:
+    webhook_url: "{{ env_var('SLACK_WEBHOOK_URL') }}"
